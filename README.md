@@ -1,3 +1,3 @@
 # LeetCodeProblems
-### My personal solutions to some Leetcode problems
-#### Solutions beat 60% of other solutions on average
+### My solutions to some Leetcode problems
+#### Solutions beat 60% ~avg of other's people solutions.
