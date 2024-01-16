@@ -1,23 +1,22 @@
 def convert(s, numRows):
-    if len(s) <= numRows:
+    if numRows == 1 or numRows >= len(s):
         return s
 
-    arr = [""] * numRows
-    i = 0
-    plus = True
+    rows = [[] for row in range(numRows)]
+    index, step = 0, -1
 
-    for j in s:
-        if i == 0 or plus:
-            plus = True
-            arr[i] += j
-            i += 1
-        if i == numRows or not plus:
-            plus = False
-            i -= 1
-            arr[i] += j
+    for char in s:
+        rows[index].append(char)
+        if index == 0:
+            step = 1
+        elif index == numRows - 1:
+            step = -1
+        index += step
 
+    for i in range(numRows):
+        rows[i] = ''.join(rows[i])
+    return ''.join(rows)
 
-    return ''.join(arr)
 
 print(convert("PAYPALISHIRING", 3))
 #print(convert("PAYPALISHIRING", 4))

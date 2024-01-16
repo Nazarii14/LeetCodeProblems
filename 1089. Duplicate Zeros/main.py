@@ -1,21 +1,14 @@
 def duplicateZeros(arr):
-    # result = []
-    # for i in arr:
-    #     result.append(i)
-    #     if i == 0:
-    #         result.append(i)
-    #     if len(result) == len(arr):
-    #         return result
-    #
-    # return result
-    n = len(arr)
-    i = 0
-    while i < n:
+    result = []
+    i, k = 0, 0
+    while k != len(arr):
+        result.append(arr[i])
         if arr[i] == 0:
-            arr = arr[:i + 1] + [0] + arr[i + 1:-1]
-            i += 1
+            result.append(arr[i])
+            k += 1
         i += 1
-    return arr
+        k += 1
+    return result
 
 
 print(duplicateZeros([1,0,2,3,0,4,5,0]))

@@ -1,38 +1,28 @@
-def equal_str(s, p):
-    if len(s) != len(p):
+def isMatch(s, p):
+    cache = {}
+
+    def dfs(i, j):
+        if (i, j) in cache:
+            return cache[(i, j)]
+        if i >= len(s) and j >= len(p):
+            return True
+        if j >= len(p):
+            return False
+
+        match = i < len(s) and (s[i] == p[j] or p[j] == '.')
+
+        if (j + 1) < len(p) and p[j + 1] == '*':
+            cache[(i, j)] = dfs(i, j + 2) or (match and dfs(i + 1, j))
+            return cache[(i, j)]
+
+        if match:
+            cache[(i, j)] = dfs(i + 1, j + 1)
+            return cache[(i, j)]
+        cache[(i, j)] = False
         return False
 
-    for i in range(len(s)):
-        if s[i] != p[i] and p[i] != ".":
-            return False
-    return True
+    return dfs(0, 0)
 
-def find_str(s, p):
-    for i in range(0, len(s) - len(p)+1):
-        if equal_str(s[i:i+len(p)], p):
-            return i
-    return -1
-
-def isMatch(s, p):
-    for i in range(1, len(p)):
-        if p[i] == "*" and p[i-1].isalpha():
-            p = p.replace(p[i-1:i], "*")
-
-    p = p.replace("&", "")
-
-    p = p.replace("**", "*")
-
-    if p.count("*") == 0:
-        return equal_str(s, p)
-
-    indeces, splitted = [], p.split("*")
-
-    for i in splitted:
-        idx = find_str(s, i)
-        indeces.append(idx)
-        s = s[idx:]
-
-    return -1 not in indeces
 
 
 #Test Cases
